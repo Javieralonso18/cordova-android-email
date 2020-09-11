@@ -28,6 +28,6 @@
 	  </feature>		
 	</config-file>    
 
-	 <framework src="com.google.android.gms:play-services-identity:+" />
+	 <framework src="com.google.android.gms:play-services-auth:+" />
     </platform>          
 </plugin>
