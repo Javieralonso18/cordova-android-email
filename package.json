@@ -1,0 +1,21 @@
+{
+  "name": "com.ccsoft.plugin.AndroidEmail",
+  "version": "0.2.0",
+  "description": "",
+  "cordova": {
+    "id": "com.ccsoft.plugin.AndroidEmail",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Javieralonso18/cordova-android-email"
+  },
+  "author": "Uceda",
+  "license": "Apache 2.0"
+}
