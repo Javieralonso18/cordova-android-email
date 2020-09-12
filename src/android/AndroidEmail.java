@@ -15,7 +15,7 @@ import android.util.Log;
 
 public class AndroidEmail extends CordovaPlugin {	
     private final String TAG = "AndroidEmail";
-    private static final int REQUEST_CODE_EMAIL = 1;
+    private static final int REQUEST_CODE_EMAIL = 1000;
     private CallbackContext _callbackContext = null;
 
     @Override
@@ -29,7 +29,7 @@ public class AndroidEmail extends CordovaPlugin {
             Runnable runnable = new Runnable() {
                 public void run() {
                     try {
-                      Intent intent = AccountPicker.newChooseAccountIntent(null, null, null, false, null, null, null, null);   
+                      Intent intent = AccountPicker.newChooseAccountIntent(null, null, null, true, null, null, null, null);   
                        //Intent intent = AccountPicker.newChooseAccountIntent(null, null,null, true, null, null, null, null);
                       cordova.getActivity().startActivityForResult(intent, REQUEST_CODE_EMAIL);
                   } catch (ActivityNotFoundException e) {
