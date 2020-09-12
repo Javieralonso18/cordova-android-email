@@ -15,7 +15,7 @@ import android.util.Log;
 
 public class AndroidEmail extends CordovaPlugin {	
     private final String TAG = "AndroidEmail";
-    private static final int REQUEST_CODE_EMAIL = 1000;
+    private static final int REQUEST_CODE_EMAIL = 1;
     private CallbackContext _callbackContext = null;
 
     @Override
