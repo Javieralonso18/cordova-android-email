@@ -29,42 +29,43 @@ public class AndroidEmail extends CordovaPlugin {
             Runnable runnable = new Runnable() {
                 public void run() {
                     try {
-                        Intent intent = AccountPicker.newChooseAccountIntent(new AccountChooserOptions.Builder().setAllowableAccountsTypes(Arrays.asList("com.google")).build());
-                        cordova.getActivity().startActivityForResult(intent, REQUEST_CODE_EMAIL);
+                      Intent intent = AccountPicker.newChooseAccountIntent(null, null,
+                        null, false, null, null, null, null);   
+                      startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
                         //Intent intent = AccountPicker.newChooseAccountIntent(null, null,null, true, null, null, null, null);
                         //cordova.getActivity().startActivityForResult(intent, REQUEST_CODE_EMAIL);
-                    } catch (ActivityNotFoundException e) {
-                        Log.e(TAG, "Activity not found: " + e.toString() );
-                        _callbackContext.error("Plugin cannot find activity: " + e.toString());
-                    } catch (Exception e) {
-                        Log.e(TAG, "Exception: " + e.toString() );
-                        _callbackContext.error("Plugin failed to get email: " + e.toString());
-                    }
-                };
-            };
-            cordova.getActivity().runOnUiThread(runnable);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (_callbackContext != null){            
-            try {
-                if (requestCode == REQUEST_CODE_EMAIL && _callbackContext != null /*&& resultCode == RESULT_OK*/) {
-                    String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-                    _callbackContext.success(accountName);
-                } else {
-                    _callbackContext.error("plugin failed to get email");	        	
+                  } catch (ActivityNotFoundException e) {
+                    Log.e(TAG, "Activity not found: " + e.toString() );
+                    _callbackContext.error("Plugin cannot find activity: " + e.toString());
+                } catch (Exception e) {
+                    Log.e(TAG, "Exception: " + e.toString() );
+                    _callbackContext.error("Plugin failed to get email: " + e.toString());
                 }
-            } catch (Exception e) {
-                _callbackContext.error("Plugin failed to get email: " + e.toString());
-                Log.e(TAG, "Exception: " + e.toString() );
-            }
-        } else {
-            Log.d(TAG, "No callback to go to!");
-        }
-        super.onActivityResult(requestCode, resultCode, data);
+            };
+        };
+        cordova.getActivity().runOnUiThread(runnable);
+        return true;
     }
+    return false;
+}
+
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (_callbackContext != null){            
+        try {
+            if (requestCode == REQUEST_CODE_EMAIL && _callbackContext != null /*&& resultCode == RESULT_OK*/) {
+                String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+                _callbackContext.success(accountName);
+            } else {
+                _callbackContext.error("plugin failed to get email");	        	
+            }
+        } catch (Exception e) {
+            _callbackContext.error("Plugin failed to get email: " + e.toString());
+            Log.e(TAG, "Exception: " + e.toString() );
+        }
+    } else {
+        Log.d(TAG, "No callback to go to!");
+    }
+    super.onActivityResult(requestCode, resultCode, data);
+}
 }
