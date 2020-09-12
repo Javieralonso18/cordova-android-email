@@ -15,7 +15,7 @@ import android.util.Log;
 
 public class AndroidEmail extends CordovaPlugin {	
     private final String TAG = "AndroidEmail";
-    private static final int REQUEST_CODE_EMAIL = 1000;
+    private static final int REQUEST_CODE_EMAIL = 1;
     private CallbackContext _callbackContext = null;
 
     @Override
@@ -53,7 +53,7 @@ public class AndroidEmail extends CordovaPlugin {
 public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (_callbackContext != null){            
         try {
-            if (requestCode == REQUEST_CODE_EMAIL && _callbackContext != null && resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CODE_EMAIL && _callbackContext != null && resultCode == Activity.RESULT_OK) {
                 String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
                 _callbackContext.success(accountName);
             } else {
