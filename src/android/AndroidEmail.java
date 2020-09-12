@@ -31,7 +31,7 @@ public class AndroidEmail extends CordovaPlugin {
                     try {
                       Intent intent = AccountPicker.newChooseAccountIntent(null, null,
                         null, false, null, null, null, null);   
-                      startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
+                      startActivityForResult(intent, REQUEST_CODE_EMAIL);
                         //Intent intent = AccountPicker.newChooseAccountIntent(null, null,null, true, null, null, null, null);
                         //cordova.getActivity().startActivityForResult(intent, REQUEST_CODE_EMAIL);
                   } catch (ActivityNotFoundException e) {
@@ -53,7 +53,7 @@ public class AndroidEmail extends CordovaPlugin {
 public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (_callbackContext != null){            
         try {
-            if (requestCode == REQUEST_CODE_EMAIL && _callbackContext != null /*&& resultCode == RESULT_OK*/) {
+            if (requestCode == REQUEST_CODE_EMAIL && _callbackContext != null && resultCode == RESULT_OK) {
                 String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
                 _callbackContext.success(accountName);
             } else {
