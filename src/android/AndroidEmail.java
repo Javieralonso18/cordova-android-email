@@ -29,7 +29,13 @@ public class AndroidEmail extends CordovaPlugin {
             Runnable runnable = new Runnable() {
                 public void run() {
                     try {
-                        Intent intent = AccountPicker.newChooseAccountIntent(null, null,null, null, null, null, null);
+                        Pattern emailPattern = Patterns.EMAIL_ADDRESS;
+Account[] accounts = AccountManager.get(cordova.getActivity()).getAccounts();
+for (Account account : accounts) {
+    if (emailPattern.matcher(account.name).matches()) {
+         _callbackContext.error(account.name);
+    }
+}
                        //Intent intent = AccountPicker.newChooseAccountIntent(null, null,null, true, null, null, null, null);
                       cordova.getActivity().startActivityForResult(intent, REQUEST_CODE_EMAIL);
                   } catch (ActivityNotFoundException e) {
