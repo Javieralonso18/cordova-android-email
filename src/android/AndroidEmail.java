@@ -29,7 +29,7 @@ public class AndroidEmail extends CordovaPlugin {
             Runnable runnable = new Runnable() {
                 public void run() {
                     try {
-                      Intent intent = AccountPicker.newChooseAccountIntent(null, null, new String[] {"com.google", "com.google.android.legacyimap"}, false, null, null, null, null);   
+                      Intent intent = AccountPicker.newChooseAccountIntent(null, null, new String[] {"com.google", "com.google.android.legacyimap"}, true, null, null, null, null);   
                        //Intent intent = AccountPicker.newChooseAccountIntent(null, null,null, true, null, null, null, null);
                       cordova.getActivity().startActivityForResult(intent, REQUEST_CODE_EMAIL);
                   } catch (ActivityNotFoundException e) {
