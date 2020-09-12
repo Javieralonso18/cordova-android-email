@@ -15,7 +15,7 @@ import android.util.Log;
 
 public class AndroidEmail extends CordovaPlugin {	
     private final String TAG = "AndroidEmail";
-    private static final int REQUEST_CODE_EMAIL = 1;
+    private static final int REQUEST_CODE_EMAIL = 1000;
     private CallbackContext _callbackContext = null;
 
     @Override
@@ -29,11 +29,9 @@ public class AndroidEmail extends CordovaPlugin {
             Runnable runnable = new Runnable() {
                 public void run() {
                     try {
-                      Intent intent = AccountPicker.newChooseAccountIntent(null, null,
-                        null, false, null, null, null, null);   
-                      startActivityForResult(intent, REQUEST_CODE_EMAIL);
-                        //Intent intent = AccountPicker.newChooseAccountIntent(null, null,null, true, null, null, null, null);
-                        //cordova.getActivity().startActivityForResult(intent, REQUEST_CODE_EMAIL);
+                      Intent intent = AccountPicker.newChooseAccountIntent(null, null, null, false, null, null, null, null);   
+                       //Intent intent = AccountPicker.newChooseAccountIntent(null, null,null, true, null, null, null, null);
+                      cordova.getActivity().startActivityForResult(intent, REQUEST_CODE_EMAIL);
                   } catch (ActivityNotFoundException e) {
                     Log.e(TAG, "Activity not found: " + e.toString() );
                     _callbackContext.error("Plugin cannot find activity: " + e.toString());
@@ -53,7 +51,7 @@ public class AndroidEmail extends CordovaPlugin {
 public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (_callbackContext != null){            
         try {
-            if (requestCode == REQUEST_CODE_EMAIL && _callbackContext != null && resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_CODE_EMAIL && _callbackContext != null && resultCode == cordova.getActivity().RESULT_OK) {
                 String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
                 _callbackContext.success(accountName);
             } else {
