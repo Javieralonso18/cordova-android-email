@@ -29,7 +29,7 @@ public class AndroidEmail extends CordovaPlugin {
             Runnable runnable = new Runnable() {
                 public void run() {
                     try {
-                      Intent intent = AccountPicker.newChooseAccountIntent(null, null, null , true, null, null, null, null);
+                      Intent intent = AccountPicker.newChooseAccountIntent(null, null, null , false, null, null, null, null);
                       cordova.getActivity().startActivityForResult(intent, REQUEST_CODE_EMAIL);
                   } catch (ActivityNotFoundException e) {
                     Log.e(TAG, "Activity not found: " + e.toString() );
@@ -51,16 +51,16 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (_callbackContext != null){            
         try {
             
-            //if (resultCode == cordova.getActivity().RESULT_OK){
+            if (resultCode == cordova.getActivity().RESULT_OK){
                 if (requestCode == REQUEST_CODE_EMAIL && _callbackContext != null) {
                     String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
                     _callbackContext.success(accountName);
                 } else {
                     _callbackContext.error("plugin failed to get email");               
                 }
-            /*}else{
+            }else{
                _callbackContext.error("cancel user"); 
-           }*/
+           }
        } catch (Exception e) {
         _callbackContext.error("Plugin failed to get email: " + e.toString());
         Log.e(TAG, "Exception: " + e.toString() );
